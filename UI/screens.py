@@ -1,55 +1,14 @@
-import tkinter as tk                # python 3
-from tkinter import font  as tkfont # python 3
-#import Tkinter as tk     # python 2
-#import tkFont as tkfont  # python 2
-from winsound import PlaySound, SND_FILENAME, SND_LOOP, SND_ASYNC, SND_NODEFAULT
-
+import tkinter as tk
 from PIL import Image, ImageTk
-from playsound import playsound
 
-from UI.screen_config import welcome_screen_div3_pady, welcome_screen_div1_pady, welcome_screen_title, \
-    welcome_screen_img, welcome_screen_playButton, name_screen_div1_pady, name_screen_div3_pady, name_screen_title, \
-    name_screen_img, name_screen_img_size, name_screen_playButton, choose_pokemon_title, no_img_path
+from UI.screen_config import choose_pokemon_title, welcome_screen_playButton, name_screen_playButton, name_screen_title, \
+    name_screen_img, name_screen_img_size, welcome_screen_title, welcome_screen_img
 from UI.utils import choice
 
-
-class SampleApp(tk.Tk):
-
-    def __init__(self, *args, **kwargs):
-        tk.Tk.__init__(self, *args, **kwargs)
-
-        self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
-
-        # the container is where we'll stack a bunch of frames
-        # on top of each other, then the one we want visible
-        # will be raised above the others
-        container = tk.Frame(self)
-        container.pack(side="top", fill="both", expand=True, padx=20, pady=20)
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
-
-        self.frames = {}
-        for F in (StartPage, NamePage, ChoosePokemon, WaitOpponent):
-            page_name = F.__name__
-            frame = F(parent=container, controller=self)
-            self.frames[page_name] = frame
-
-            # put all of the pages in the same location;
-            # the one on the top of the stacking order
-            # will be the one that is visible.
-            frame.grid(row=0, column=0, sticky="nsew")
-
-        self.show_frame("StartPage")
-
-    def show_frame(self, page_name, pathname=no_img_path):
-        '''Show a frame for the given page name'''
-        frame = self.frames[page_name]
-        if page_name == "WaitOpponent":
-            frame.changeImg(pathname)
-        frame.tkraise()
+from UI.screen_config import no_img_path
 
 
-class StartPage(tk.Frame):
+class StartScreen(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -81,10 +40,10 @@ class StartPage(tk.Frame):
         self.playButton["text"] = welcome_screen_playButton
         self.playButton["width"] = 10
         self.playButton["font"] = ("Verdana", "16")
-        self.playButton["command"] = lambda: controller.show_frame("NamePage")
+        self.playButton["command"] = lambda: controller.show_frame("NameScreen")
         self.playButton.pack()
 
-class NamePage(tk.Frame):
+class NameScreen(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -217,11 +176,5 @@ class WaitOpponent(tk.Frame):
         self.img.configure(image = img)
         self.img.image = img
 
-
-
 if __name__ == "__main__":
-    app = SampleApp()
-    app.geometry("800x500")
-    app.title("Pokémon Simulator")
-    app.iconbitmap("pokeball.ico")
-    app.mainloop()
+    pass
