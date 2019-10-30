@@ -22,26 +22,26 @@ class Type(Enum):
     FAIRY = 18
 
 
-class Effectiveness(Enum):
-    Type.FIRE = {
+EFFECTIVENESS = {
+    Type.FIRE: {
                'advantages': [Type.BUG, Type.GRASS, Type.STEEL, Type.ICE],
                'weaknesses': [Type.ROCK, Type.FIRE, Type.WATER, Type.DRAGON],
                'resistances': [Type.BUG, Type.STEEL, Type.FIRE, Type.GRASS, Type.ICE],
                'vulnerabilities': [Type.GROUND, Type.ROCK, Type.WATER]
            },
-    Type.WATER = {
+    Type.WATER: {
                 'advantages': [Type.GROUND, Type.ROCK, Type.FIRE],
                 'weaknesses': [Type.WATER, Type.GRASS, Type.DRAGON],
                 'resistances': [Type.WATER, Type.STEEL, Type.FIRE, Type.ICE],
                 'vulnerabilities': [Type.GRASS, Type.ELECTRIC]
             },
-    Type.GRASS = {
+    Type.GRASS: {
                 'advantages': [Type.GROUND, Type.ROCK, Type.WATER],
                 'weaknesses': [Type.FLYING, Type.GRASS, Type.DRAGON, Type.POISON, Type.BUG, Type.STEEL, Type.FIRE],
                 'resistances': [Type.GROUND, Type.WATER, Type.GRASS, Type.ELECTRIC],
                 'vulnerabilities': [Type.FLYING, Type.POISON, Type.BUG, Type.FIRE, Type.ICE]
             },
-    Type.POISON = {
+    Type.POISON: {
                  'advantages': [Type.GRASS, Type.FAIRY],
                  'weaknesses': [Type.POISON, Type.GROUND, Type.ROCK, Type.GHOST],
                  'resistances': [Type.FIGHTING, Type.POISON, Type.GRASS],
@@ -49,10 +49,11 @@ class Effectiveness(Enum):
                  'harmlessness': [Type.STEEL],
                  'immunities': [Type.FAIRY]
              },
-    Type.ELECTRIC = {
+    Type.ELECTRIC: {
                    'advantages': [Type.FLYING, Type.WATER],
                    'weaknesses': [Type.GRASS, Type.ELECTRIC, Type.DRAGON],
                    'resistances': [Type.FLYING, Type.STEEL, Type.ELECTRIC],
                    'vulnerabilities': [Type.GROUND],
                    'harmlessness': [Type.GROUND]
                },
+}

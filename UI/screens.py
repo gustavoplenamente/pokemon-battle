@@ -2,7 +2,8 @@ import tkinter as tk
 from PIL import Image, ImageTk
 
 from UI.screen_config import choose_pokemon_title, welcome_screen_playButton, name_screen_playButton, name_screen_title, \
-    name_screen_img, name_screen_img_size, welcome_screen_title, welcome_screen_img
+    name_screen_img, name_screen_img_size, welcome_screen_title, welcome_screen_img, pikachu_png, charmander_png, \
+    bulbasaur_png, squirtle_png
 from UI.utils import choice
 
 from UI.screen_config import no_img_path
@@ -114,25 +115,25 @@ class ChoosePokemon(tk.Frame):
         self.title["font"] = ("Verdana", "24", "bold")
         self.title.pack()
 
-        screen_img1 = Image.open("bulbasaur.png").resize((150,150), Image.ANTIALIAS)
+        screen_img1 = Image.open(bulbasaur_png).resize((150,150), Image.ANTIALIAS)
         img1 = ImageTk.PhotoImage(screen_img1)
         self.img1 = tk.Label(self.div2, image=img1)
         self.img1.image = img1
         self.img1.pack(fill="both", expand=True)
 
-        screen_img2 = Image.open("squirtle.png").resize((200,200), Image.ANTIALIAS)
+        screen_img2 = Image.open(squirtle_png).resize((200,200), Image.ANTIALIAS)
         img2 = ImageTk.PhotoImage(screen_img2)
         self.img2 = tk.Label(self.div3, image=img2)
         self.img2.image = img2
         self.img2.pack(fill="both", expand=True)
 
-        screen_img3 = Image.open("charmander.png").resize((150,150), Image.ANTIALIAS)
+        screen_img3 = Image.open(charmander_png).resize((150,150), Image.ANTIALIAS)
         img3 = ImageTk.PhotoImage(screen_img3)
         self.img3 = tk.Label(self.div4, image=img3)
         self.img3.image = img3
         self.img3.pack(fill="both", expand=True)
 
-        screen_img4 = Image.open("pikachu.png").resize((200,200), Image.ANTIALIAS)
+        screen_img4 = Image.open(pikachu_png).resize((200,200), Image.ANTIALIAS)
         img4 = ImageTk.PhotoImage(screen_img4)
         self.img4 = tk.Label(self.div5, image=img4)
         self.img4.image = img4

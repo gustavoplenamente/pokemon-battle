@@ -4,7 +4,7 @@ from typing import Dict
 
 from game_logic.Player import Player
 from settings.EMoveCategory import MoveCategory
-from settings.Type import Type, Effectiveness
+from settings.Type import Type, EFFECTIVENESS
 
 
 class BattleController:
@@ -18,6 +18,12 @@ class BattleController:
         # change to battle screen
         self.run_battle()
 
+    def run_battle(self):
+        while len(self.moves_selected.keys()) != 2:
+            time.sleep(1)
+
+        self.run_moves()
+
     def run_moves(self):
         if self.pokemon1.stats['Spd'] > self.pokemon2.stats['Spd']:
             self.attack(self.pokemon1, self.pokemon2)
@@ -25,12 +31,6 @@ class BattleController:
         else:
             self.attack(self.pokemon2, self.pokemon1)
             self.attack(self.pokemon1, self.pokemon2)
-
-    def run_battle(self):
-        while len(self.moves_selected.keys()) != 2:
-            time.sleep(1)
-
-        self.run_moves()
 
     def attack(self, attacker, defender):
         move = attacker.selected_move
@@ -46,11 +46,11 @@ class BattleController:
         def_types = pokemon2.types
         for atk_type in atk_types:
             for def_type in def_types:
-                if def_type in Effectiveness.atk_type['advantages']:
+                if def_type in EFFECTIVENESS[atk_type]['advantages']:
                     type_factor *= 2.0
-                elif def_type in Effectiveness.atk_type['weaknesses']:
+                elif def_type in EFFECTIVENESS[atk_type]['weaknesses']:
                     type_factor *= 0.5
-                elif def_type in Effectiveness.atk_type.get('harmlessness'):
+                elif def_type in EFFECTIVENESS[atk_type].get('harmlessness'):
                     type_factor *= 0
 
         return type_factor
@@ -80,3 +80,4 @@ class BattleController:
         # Notify winner and loser
         # Suggestion: Erase loser pokemon from battle scene
         # Move to end-battle screen
+        pass

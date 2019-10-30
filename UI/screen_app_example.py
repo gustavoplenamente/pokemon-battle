@@ -223,5 +223,5 @@ if __name__ == "__main__":
     app = SampleApp()
     app.geometry("800x500")
     app.title("Pokémon Simulator")
-    app.iconbitmap("pokeball.ico")
+    app.iconbitmap(pokeball_ico)
     app.mainloop()

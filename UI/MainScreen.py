@@ -1,7 +1,7 @@
 import tkinter as tk                # python 3
 from tkinter import font as tkfont  # python 3
 
-from UI.screen_config import no_img_path
+from UI.screen_config import no_img_path, pokeball_ico, app_geometry
 from UI.screens import StartScreen, NameScreen, ChoosePokemon, WaitOpponent
 
 
@@ -43,7 +43,7 @@ class SampleApp(tk.Tk):
 
 if __name__ == "__main__":
     app = SampleApp()
-    app.geometry("800x500")
+    app.geometry(app_geometry)
     app.title("Pokémon Simulator")
-    app.iconbitmap("pokeball.ico")
+    app.iconbitmap(pokeball_ico)
     app.mainloop()
