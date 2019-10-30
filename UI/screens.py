@@ -43,6 +43,7 @@ class StartScreen(tk.Frame):
         self.playButton["command"] = lambda: controller.show_frame("NameScreen")
         self.playButton.pack()
 
+
 class NameScreen(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -149,6 +150,7 @@ class ChoosePokemon(tk.Frame):
         self.button4 = tk.Button(self.div5, text = "Pikachu", width = 10, command=lambda:choice(4, controller))
         self.button4.pack(side=tk.BOTTOM)
 
+
 class WaitOpponent(tk.Frame):
     def __init__(self, parent, controller, pathname = no_img_path):
         tk.Frame.__init__(self, parent)
@@ -175,6 +177,7 @@ class WaitOpponent(tk.Frame):
         img = ImageTk.PhotoImage(screen_img)
         self.img.configure(image = img)
         self.img.image = img
+
 
 if __name__ == "__main__":
     pass

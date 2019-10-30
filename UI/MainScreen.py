@@ -1,5 +1,5 @@
 import tkinter as tk                # python 3
-from tkinter import font  as tkfont # python 3
+from tkinter import font as tkfont  # python 3
 
 from UI.screen_config import no_img_path
 from UI.screens import StartScreen, NameScreen, ChoosePokemon, WaitOpponent
@@ -39,6 +39,7 @@ class SampleApp(tk.Tk):
         if page_name == "WaitOpponent":
             frame.changeImg(pathname)
         frame.tkraise()
+
 
 if __name__ == "__main__":
     app = SampleApp()

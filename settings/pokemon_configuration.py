@@ -1,8 +1,8 @@
-from settings.EType import EnumType
+from settings.Type import Type
 
 pikachu = {
     'name': 'Pikachu',
-    'type1': EnumType.ELECTRIC,
+    'type1': Type.ELECTRIC,
     'moves': [],
     'stats': {
         'HP': 35,
@@ -16,8 +16,8 @@ pikachu = {
 
 bulbasaur = {
     'name': 'Bulbasaur',
-    'type1': EnumType.GRASS,
-    'type2': EnumType.POISON,
+    'type1': Type.GRASS,
+    'type2': Type.POISON,
     'moves': [],
     'stats': {
         'HP': 45,
@@ -31,7 +31,7 @@ bulbasaur = {
 
 charmander = {
     'name': 'Charmander',
-    'type1': EnumType.FIRE,
+    'type1': Type.FIRE,
     'moves': [],
     'stats': {
         'HP': 39,
@@ -45,7 +45,7 @@ charmander = {
 
 squirtle = {
     'name': 'Squirtle',
-    'type1': EnumType.WATER,
+    'type1': Type.WATER,
     'moves': [],
     'stats': {
         'HP': 44,
