@@ -1,5 +1,6 @@
 import time
-from settings import MSG_LEN, SERVER_NAME, SERVER_PORT
+
+from api.settings import SERVER, PORT
 
 
 def recv_function(client_socket, name):
@@ -22,7 +23,7 @@ def send_function(client_socket, name):
         try:
             message = input("You: ")
             encoded_message = message.encode()
-            client_socket.sendto(bytes(encoded_message), (SERVER_NAME, SERVER_PORT))
+            client_socket.sendto(bytes(encoded_message), (SERVER, PORT))
             time.sleep(0.5)
         except KeyboardInterrupt:
             print("\nExiting...")

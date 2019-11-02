@@ -2,8 +2,8 @@ import socket
 import threading
 import time
 
-from settings import LOCALHOST, PORT
-from utils import stringfy
+from api.settings import LOCALHOST, PORT
+from api.utils import stringfy
 
 
 class SetPlayersThread(threading.Thread):
@@ -48,7 +48,6 @@ class SetPlayersThread(threading.Thread):
         print(addr + " - Pokemon: " + pokemon)
 
         self.player = {
-            # "socket" : self.csocket,
             "name": name,
             "pokemon": pokemon
         }
