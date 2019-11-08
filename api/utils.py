@@ -1,6 +1,6 @@
 import time
 
-from api.settings import SERVER, PORT
+from settings import SERVER, PORT
 
 
 def recv_function(client_socket, name):

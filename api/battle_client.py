@@ -1,8 +1,8 @@
 import socket
 import time
 
-from api.settings import SERVER, PORT
-from api.utils import dictionize
+from settings import SERVER, PORT
+from utils import dictionize
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((SERVER, PORT))

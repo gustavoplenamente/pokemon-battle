@@ -2,8 +2,8 @@ import socket
 import threading
 import time
 
-from api.settings import LOCALHOST, PORT
-from api.utils import stringfy
+from settings import LOCALHOST, PORT
+from utils import stringfy
 
 
 class SetPlayersThread(threading.Thread):
