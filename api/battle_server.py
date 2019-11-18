@@ -4,8 +4,9 @@ import time
 
 from api_settings import LOCALHOST, PORT
 from api_utils import stringfy
-#from settings.pokemon_configuration import bulbasaur, charmander, squirtle, pikachu
-from game_logic import Player, Pokemon
+from settings.pokemon_configuration import bulbasaur, charmander, squirtle, pikachu
+from game_logic.Player import Player
+from game_logic.Pokemon import Pokemon
 
 
 class SetPlayersThread(threading.Thread):
@@ -19,6 +20,8 @@ class SetPlayersThread(threading.Thread):
         'Squirtle': squirtle,
         'Pikachu': pikachu
     }
+    moves = {"1": "Tackle", "2": "Pound",
+             "3": "Quick Attack", "4": "Special Move"}
 
     def __init__(self, clientAddress, clientSocket):
         threading.Thread.__init__(self)
@@ -33,7 +36,6 @@ class SetPlayersThread(threading.Thread):
 
         addr = clientAddress[0]
         print("Connection from : ", addr)
-
         while True:
             game_offer = "Write \"Play\" if you want to play Pokemon Simulator!\n"
             self.csocket.sendall(game_offer.encode())
@@ -76,8 +78,36 @@ class SetPlayersThread(threading.Thread):
                     else:
                         time.sleep(1)
 
-        pokemon_obj = Pokemon(pokemon_to_dict[self.player['pokemon']])
-        self.Player = Player(csocket, self.player['name'], pokemon_obj)
+        pokemon_obj = Pokemon(self.pokemon_to_dict[self.player['pokemon']])
+        self.Player = Player(self.csocket, self.player['name'], pokemon_obj)
+
+        time.sleep(5)
+
+        self.ready[self.csocket] = 'choose-move'
+
+        while self.ready[self.rivalSocket] != 'choose-move':
+            time.sleep(1)
+
+        move_request = """Choose a move:
+        (1) Tackle\t(2) Pound\t(3) Quick Attack\t(4) Special Move
+        """
+        self.csocket.sendall(move_request.encode())
+        move_code = self.csocket.recv(1024).decode()
+        move = self.moves[move_code]
+        print(addr + " - Move: " + move)
+
+        self.ready[self.csocket] = 'waiting-rival'
+
+        while True:
+            if self.ready[self.rivalSocket] == "waiting-rival":
+                self.rivalSocket.sendall(move.encode())
+                break
+            else:
+                time.sleep(1)
+
+        time.sleep(5)
+
+
 
 
 

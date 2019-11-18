@@ -15,7 +15,8 @@ class Pokemon:
 
     def get_types(self):
         types = [self.type1]
-        types += self.type2 if self.type2 is not None else []
+        if self.type2 is not None:
+            types.append(self.type2)
         return types
 
     def select_move(self, move: Move):
