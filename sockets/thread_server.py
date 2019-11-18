@@ -1,6 +1,6 @@
 from socket import socket, AF_INET, SOCK_STREAM
 from typing import List
-from settings.settings import MSG_LEN, SERVER_PORT, SERVER_ADDR
+from settings import SERVER_PORT, SERVER_ADDR
 
 server = socket(AF_INET, SOCK_STREAM)
 server.bind((SERVER_ADDR, SERVER_PORT))

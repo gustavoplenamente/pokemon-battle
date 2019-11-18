@@ -3,7 +3,7 @@ from settings.Type import Type
 pikachu = {
     'name': 'Pikachu',
     'type1': Type.ELECTRIC,
-    'moves': [],
+    'moves': ['Thundershock', 'Quick Attack', 'Iron Tail', 'Slam'],
     'stats': {
         'HP': 35,
         'Atk': 55,
@@ -18,7 +18,7 @@ bulbasaur = {
     'name': 'Bulbasaur',
     'type1': Type.GRASS,
     'type2': Type.POISON,
-    'moves': [],
+    'moves': ['Razor Leaf', 'Vine Whip', 'Tackle', 'Poison Powder'],
     'stats': {
         'HP': 45,
         'Atk': 49,
@@ -32,7 +32,7 @@ bulbasaur = {
 charmander = {
     'name': 'Charmander',
     'type1': Type.FIRE,
-    'moves': [],
+    'moves': ['Scratch', 'Ember', 'Flamethrower', 'Bite'],
     'stats': {
         'HP': 39,
         'Atk': 52,
@@ -46,7 +46,7 @@ charmander = {
 squirtle = {
     'name': 'Squirtle',
     'type1': Type.WATER,
-    'moves': [],
+    'moves': ['Pound', 'Water Gun', 'Bubblebeam', 'Bash Skull'],
     'stats': {
         'HP': 44,
         'Atk': 48,

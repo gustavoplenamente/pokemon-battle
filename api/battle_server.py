@@ -20,8 +20,7 @@ class SetPlayersThread(threading.Thread):
         'Squirtle': squirtle,
         'Pikachu': pikachu
     }
-    moves = {"1": "Tackle", "2": "Pound",
-             "3": "Quick Attack", "4": "Special Move"}
+    moves = []
 
     def __init__(self, clientAddress, clientSocket):
         threading.Thread.__init__(self)
@@ -88,12 +87,14 @@ class SetPlayersThread(threading.Thread):
         while self.ready[self.rivalSocket] != 'choose-move':
             time.sleep(1)
 
+        self.moves = pokemon_obj.moves
+
         move_request = """Choose a move:
-        (1) Tackle\t(2) Pound\t(3) Quick Attack\t(4) Special Move
-        """
+        (1) %s\t(2) %s\t(3) %s\t(4) %s
+        """% (self.moves[0], self.moves[1], self.moves[2], self.moves[3])
         self.csocket.sendall(move_request.encode())
         move_code = self.csocket.recv(1024).decode()
-        move = self.moves[move_code]
+        move = self.moves[int(move_code)-1]
         print(addr + " - Move: " + move)
 
         self.ready[self.csocket] = 'waiting-rival'
