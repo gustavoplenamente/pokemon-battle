@@ -40,6 +40,12 @@ class SampleApp(tk.Tk):
             frame.changeImg(pathname)
         frame.tkraise()
 
+    def display(self):
+        self.geometry(app_geometry)
+        self.title("Pokémon Simulator")
+        self.iconbitmap(pokeball_ico)
+        self.mainloop()
+
 
 if __name__ == "__main__":
     app = SampleApp()

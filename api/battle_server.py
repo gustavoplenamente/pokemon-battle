@@ -2,8 +2,10 @@ import socket
 import threading
 import time
 
-from settings import LOCALHOST, PORT
-from utils import stringfy
+from api_settings import LOCALHOST, PORT
+from api_utils import stringfy
+#from settings.pokemon_configuration import bulbasaur, charmander, squirtle, pikachu
+from game_logic import Player, Pokemon
 
 
 class SetPlayersThread(threading.Thread):
@@ -11,6 +13,12 @@ class SetPlayersThread(threading.Thread):
     ready = {}
     pokemons = {"1": "Bulbasaur", "2": "Squirtle",
                 "3": "Charmander", "4": "Pikachu"}
+    pokemon_to_dict = {
+        'Bulbasaur': bulbasaur,
+        'Charmander': charmander,
+        'Squirtle': squirtle,
+        'Pikachu': pikachu
+    }
 
     def __init__(self, clientAddress, clientSocket):
         threading.Thread.__init__(self)
@@ -68,6 +76,13 @@ class SetPlayersThread(threading.Thread):
                     else:
                         time.sleep(1)
 
+        pokemon_obj = Pokemon(pokemon_to_dict[self.player['pokemon']])
+        self.Player = Player(csocket, self.player['name'], pokemon_obj)
+
+
+
+
+
 
 if __name__ == "__main__":
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -83,7 +98,7 @@ if __name__ == "__main__":
     newthread = SetPlayersThread(clientAddress, clientSock)
     newthread.start()
 
-    server.listen(2)
+    #server.listen(1)
     clientSock2, clientAddress2 = server.accept()
     newthread2 = SetPlayersThread(clientAddress2, clientSock2)
     newthread2.start()
