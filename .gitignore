@@ -117,4 +117,10 @@ pip-selfcheck.json
 
 # UI
 UI/__pychache__/*
+
+# api
+api/__pychache__/*
+api/settings/__pychache__/*
+api/game_logic/__pychache__/*
+
 # End of https://www.gitignore.io/api/venv,dotenv,pycharm

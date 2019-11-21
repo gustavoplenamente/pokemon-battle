@@ -1,6 +1,6 @@
 import time
 
-from api_settings import SERVER, PORT
+"""from api_settings import SERVER, PORT
 
 
 def recv_function(client_socket, name):
@@ -36,6 +36,7 @@ def stringfy2(dictionary):
         stringfied += key + ":" + dictionary[key] + ","
     stringfied = stringfied[:-1] + "}"
     return stringfied
+"""
 
 def stringfy(dictionary):
     result = ""

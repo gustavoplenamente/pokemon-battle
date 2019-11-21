@@ -1,12 +1,14 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+import winsound
+import threading
 
-from UI.screen_config import choose_pokemon_title, welcome_screen_playButton, name_screen_playButton, name_screen_title, \
+from api.UI.screen_config import choose_pokemon_title, welcome_screen_playButton, name_screen_playButton, name_screen_title, \
     name_screen_img, name_screen_img_size, welcome_screen_title, welcome_screen_img, pikachu_png, charmander_png, \
     bulbasaur_png, squirtle_png
-from UI.utils import choice
+from api.UI.utils import choice
 
-from UI.screen_config import no_img_path
+from api.UI.screen_config import no_img_path
 
 
 class StartScreen(tk.Frame):
@@ -41,7 +43,11 @@ class StartScreen(tk.Frame):
         self.playButton["text"] = welcome_screen_playButton
         self.playButton["width"] = 10
         self.playButton["font"] = ("Verdana", "16")
-        self.playButton["command"] = lambda: controller.show_frame("NameScreen")
+        
+        playSong = lambda: winsound.PlaySound('opening.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+        songThread = threading.Thread(target = playSong)
+            
+        self.playButton["command"] = lambda: controller.show_frame("NameScreen") or songThread.start()
         self.playButton.pack()
 
 
@@ -80,7 +86,7 @@ class NameScreen(tk.Frame):
         self.name_entry.pack(side=tk.LEFT)
 
         self.playButton = tk.Button(self.div3)
-        self.playButton["text"] = "Diga seu nome..."
+        self.playButton["text"] = "Ok"
         self.playButton["width"] = 10
         self.playButton["font"] = ("Verdana", "16")
         self.playButton["command"] = lambda: controller.show_frame("ChoosePokemon")
@@ -88,6 +94,9 @@ class NameScreen(tk.Frame):
 
     def clearEntry(self, event):
         self.playButton["text"]= name_screen_playButton
+
+    def getName(self):
+        return self.name_entry.get()
 
 
 class ChoosePokemon(tk.Frame):
@@ -139,6 +148,8 @@ class ChoosePokemon(tk.Frame):
         self.img4.image = img4
         self.img4.pack(fill="both", expand=True)
 
+        #self.pokemon_choice = -1
+
         self.button1 = tk.Button(self.div2, text = "Bulbasaur", width = 10, command=lambda:choice(1, controller))
         self.button1.pack(side=tk.BOTTOM)
 
@@ -171,6 +182,17 @@ class WaitOpponent(tk.Frame):
 
         self.msg = tk.Label(self.div1, text = "Aguarde por um jogador...", font = self.standardFont)
         self.msg.pack()
+
+        self.div2 = tk.Frame(self)
+        self.div2.pack(fill="both", expand=True)
+
+        self.quitButton = tk.Button(self.div2)
+        self.quitButton["text"] = "Batalha!"
+        self.quitButton["width"] = 10
+        self.quitButton["font"] = ("Verdana", "16")
+
+        self.quitButton["command"] = lambda: controller.set_player_state('ready') or controller.quit()
+        self.quitButton.pack()
 
     def changeImg(self, img_path):
         self.img_path = img_path

@@ -5,12 +5,12 @@ from tkinter import font  as tkfont # python 3
 from winsound import PlaySound, SND_FILENAME, SND_LOOP, SND_ASYNC, SND_NODEFAULT
 
 from PIL import Image, ImageTk
-from playsound import playsound
+#from playsound import playsound
 
-from UI.screen_config import welcome_screen_div3_pady, welcome_screen_div1_pady, welcome_screen_title, \
+from screen_config import welcome_screen_div3_pady, welcome_screen_div1_pady, welcome_screen_title, \
     welcome_screen_img, welcome_screen_playButton, name_screen_div1_pady, name_screen_div3_pady, name_screen_title, \
     name_screen_img, name_screen_img_size, name_screen_playButton, choose_pokemon_title, no_img_path
-from UI.utils import choice
+from utils import choice
 
 
 class SampleApp(tk.Tk):

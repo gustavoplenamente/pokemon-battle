@@ -1,14 +1,19 @@
 import tkinter as tk                # python 3
 from tkinter import font as tkfont  # python 3
+import threading
 
-from UI.screen_config import no_img_path, pokeball_ico, app_geometry
-from UI.screens import StartScreen, NameScreen, ChoosePokemon, WaitOpponent
+from api.UI import screen_config
+from api.UI import screens
 
+import winsound
 
 class SampleApp(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
+
+        # store player info
+        self.player_info = {'name':'Ash', 'pokemon':'Ghost', 'state':'not-ready'}
 
         self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
 
@@ -21,7 +26,7 @@ class SampleApp(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (StartScreen, NameScreen, ChoosePokemon, WaitOpponent):
+        for F in (screens.StartScreen, screens.NameScreen, screens.ChoosePokemon, screens.WaitOpponent):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -33,23 +38,42 @@ class SampleApp(tk.Tk):
 
         self.show_frame("StartScreen")
 
-    def show_frame(self, page_name, pathname=no_img_path):
+    def show_frame(self, page_name, pathname=screen_config.no_img_path):
         '''Show a frame for the given page name'''
         frame = self.frames[page_name]
+
         if page_name == "WaitOpponent":
             frame.changeImg(pathname)
+            self.player_info["name"] = self.frames["NameScreen"].getName()
+            self.player_info["pokemon"] = self.frames["NameScreen"].getName()
+
+
         frame.tkraise()
 
     def display(self):
-        self.geometry(app_geometry)
+        self.geometry(screen_config.app_geometry)
         self.title("Pokémon Simulator")
-        self.iconbitmap(pokeball_ico)
+        self.iconbitmap(screen_config.pokeball_ico)
+        
+        playSong = lambda: winsound.PlaySound('choice.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+        songThread = threading.Thread(target = playSong)
+        songThread.start()
+        
         self.mainloop()
+
+    def echo_player_info(self):
+        print("Name :", self.player_info['name'], ", Pokémon :", self.player_info['pokemon'], "->", self.player_info['state'])
+
+    def get_player_info(self):
+        return self.player_info
+
+    def set_player_state(self, state):
+        self.player_info["state"] = state
 
 
 if __name__ == "__main__":
     app = SampleApp()
-    app.geometry(app_geometry)
+    app.geometry(screen_config.app_geometry)
     app.title("Pokémon Simulator")
-    app.iconbitmap(pokeball_ico)
+    app.iconbitmap(screen_config.pokeball_ico)
     app.mainloop()
