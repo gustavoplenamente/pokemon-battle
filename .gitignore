@@ -119,6 +119,7 @@ pip-selfcheck.json
 UI/__pychache__/*
 
 # api
+api/UI/__pychache__/*
 api/__pychache__/*
 api/settings/__pychache__/*
 api/game_logic/__pychache__/*
