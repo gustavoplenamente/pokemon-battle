@@ -9,6 +9,9 @@ from api.UI.utils import mapPathByPokeName
 
 import winsound
 
+from api.UI.utils import pokemon_to_dict
+from api.game_logic.Pokemon import Pokemon
+
 class BattleApp(tk.Tk):
 
     def __init__(self, player, rival, *args, **kwargs):
@@ -17,6 +20,8 @@ class BattleApp(tk.Tk):
         # store player info
         self.player_info = player
         self.rival_info = rival
+        self.pokemon = Pokemon(pokemon_to_dict[self.player_info['pokemon']])
+        self.cur_move = 'struggle'
 
         self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
 
@@ -70,6 +75,12 @@ class BattleApp(tk.Tk):
 
     def set_player_state(self, state):
         self.player_info["state"] = state
+
+    def set_cur_move(self, move):
+        self.cur_move = move
+
+    def get_cur_move(self):
+        return self.cur_move
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 from api.UI.screen_config import bulbasaur_png, squirtle_png, charmander_png, pikachu_png
 from api.UI.screen_config import pokemon_info
+from api.settings.pokemon_configuration import *
 
 def choice(i, controller):
     if i==1:
@@ -17,3 +18,10 @@ def choice(i, controller):
 
 def mapPathByPokeName(poke_name, mode):
     return pokemon_info[poke_name][mode]
+
+pokemon_to_dict = {
+    'Bulbasaur': bulbasaur,
+    'Charmander': charmander,
+    'Squirtle': squirtle,
+    'Pikachu': pikachu
+}

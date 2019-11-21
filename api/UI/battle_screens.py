@@ -72,6 +72,137 @@ class ChooseMoveScreen(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
+        #self.standardFont = ("Verdana", "16")
+        self.div1 = tk.Frame(self)
+        self.div1.pack(fill="both", expand=True, side = tk.LEFT)
+
+        self.div2 = tk.Frame(self)
+        self.div2.pack(fill="both", expand=True, side = tk.LEFT)
+
+        self.div3 = tk.Frame(self)
+        self.div3.pack(fill="both", expand=True, side = tk.LEFT)
+
+        self.div11 = tk.Frame(self.div1)
+        self.div11.pack(fill="both", expand=True, side = tk.TOP)
+
+        self.div31 = tk.Frame(self.div3)
+        self.div31.pack(fill="both", expand=True, side = tk.BOTTOM)
+
+        self.img_path = mapPathByPokeName(controller.player_info["pokemon"].lower(), "wait_img")
+        self.img_path2 = mapPathByPokeName(controller.rival_info["pokemon"].lower(), "wait_img")
+
+        screen_img = Image.open(self.img_path).resize((250,250), Image.ANTIALIAS)
+        img = ImageTk.PhotoImage(screen_img)
+        self.img = tk.Label(self.div11, image=img)
+        self.img.image = img
+        self.img.pack(fill="both", expand=True, side = tk.BOTTOM)
+
+        self.msg = tk.Label(self.div2, text = "\"" + controller.player_info["name"] + "\"\nVs\n\""
+                                            + controller.rival_info["name"] + "\"", font = ("Verdana", "18"))
+        self.msg.pack(side = tk.TOP)
+
+        self.moves = tk.Label(self.div2, text = "Escolha um golpe!", font = ("Verdana", "14"))
+        self.moves.pack(side = tk.BOTTOM)
+
+        self.move1 = tk.Button(self.div2)
+        self.move1["text"] = controller.pokemon.moves[0]
+        self.move1["width"] = 25
+        self.move1["font"] = ("Verdana", "16")
+
+        self.move1["command"] = lambda: controller.set_player_state('wait-move') \
+                                        or controller.set_cur_move(controller.pokemon.moves[0]) \
+                                        or controller.show_frame("WaitMoveScreen")
+                                        
+        self.move1.pack(side = tk.BOTTOM)
+
+        self.move2 = tk.Button(self.div2)
+        self.move2["text"] = controller.pokemon.moves[1]
+        self.move2["width"] = 25
+        self.move2["font"] = ("Verdana", "16")
+
+        self.move2["command"] = lambda: controller.set_player_state('wait-move') \
+                                        or controller.set_cur_move(controller.pokemon.moves[1]) \
+                                        or controller.show_frame("WaitMoveScreen")
+        self.move2.pack(side = tk.BOTTOM)
+
+        self.move3 = tk.Button(self.div2)
+        self.move3["text"] = controller.pokemon.moves[2]
+        self.move3["width"] = 25
+        self.move3["font"] = ("Verdana", "16")
+
+        self.move3["command"] = lambda: controller.set_player_state('wait-move') \
+                                        or controller.set_cur_move(controller.pokemon.moves[2]) \
+                                        or controller.show_frame("WaitMoveScreen")
+        self.move3.pack(side = tk.BOTTOM)
+
+        self.move4 = tk.Button(self.div2)
+        self.move4["text"] = controller.pokemon.moves[3]
+        self.move4["width"] = 25
+        self.move4["font"] = ("Verdana", "16")
+
+        self.move4["command"] = lambda: controller.set_player_state('wait-move') \
+                                        or controller.set_cur_move(controller.pokemon.moves[3]) \
+                                        or controller.show_frame("WaitMoveScreen")
+        self.move4.pack(side = tk.BOTTOM)
+        
+
+        screen_img2 = Image.open(self.img_path2).resize((250,250), Image.ANTIALIAS)
+        img2 = ImageTk.PhotoImage(screen_img2)
+        self.img2 = tk.Label(self.div31, image=img2)
+        self.img2.image = img2
+        self.img2.pack(fill="both", expand=True, side = tk.TOP)
+
+class WaitMoveScreen(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        #self.standardFont = ("Verdana", "16")
+        self.div1 = tk.Frame(self)
+        self.div1.pack(fill="both", expand=True, side = tk.LEFT)
+
+        self.div2 = tk.Frame(self)
+        self.div2.pack(fill="both", expand=True, side = tk.LEFT)
+
+        self.div3 = tk.Frame(self)
+        self.div3.pack(fill="both", expand=True, side = tk.LEFT)
+
+        self.div11 = tk.Frame(self.div1)
+        self.div11.pack(fill="both", expand=True, side = tk.TOP)
+
+        self.div31 = tk.Frame(self.div3)
+        self.div31.pack(fill="both", expand=True, side = tk.BOTTOM)
+
+        self.img_path = mapPathByPokeName(controller.player_info["pokemon"].lower(), "wait_img")
+        self.img_path2 = mapPathByPokeName(controller.rival_info["pokemon"].lower(), "wait_img")
+
+        screen_img = Image.open(self.img_path).resize((250,250), Image.ANTIALIAS)
+        img = ImageTk.PhotoImage(screen_img)
+        self.img = tk.Label(self.div11, image=img)
+        self.img.image = img
+        self.img.pack(fill="both", expand=True, side = tk.BOTTOM)
+
+        self.msg = tk.Label(self.div2, text = "\"" + controller.player_info["name"] + "\"\nVs\n\""
+                                            + controller.rival_info["name"] + "\"", font = ("Verdana", "18"))
+        self.msg.pack(side = tk.TOP)
+
+        self.moves = tk.Label(self.div2, text = controller.player_info['pokemon'] + " utilizou " + controller.get_cur_move() + "!", font = ("Verdana", "14"))
+        self.moves.pack(side = tk.BOTTOM)
+        
+
+        screen_img2 = Image.open(self.img_path2).resize((250,250), Image.ANTIALIAS)
+        img2 = ImageTk.PhotoImage(screen_img2)
+        self.img2 = tk.Label(self.div31, image=img2)
+        self.img2.image = img2
+        self.img2.pack(fill="both", expand=True, side = tk.TOP)
+
+
+
+class NaoSeiScreen(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
         self.standardFont = ("Verdana", "16")
 
         self.div1 = tk.Frame(self)
@@ -129,7 +260,7 @@ class ChooseMoveScreen(tk.Frame):
         self.button4.pack(side=tk.BOTTOM)
 
 
-class WaitMoveScreen(tk.Frame):
+class WaaitMoveScreen(tk.Frame):
     def __init__(self, parent, controller, pathname = no_img_path):
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -167,7 +298,7 @@ class WaitMoveScreen(tk.Frame):
         self.img.configure(image = img)
         self.img.image = img
 
-class SeeMoveScreen(tk.Frame):
+class SeeNadaScreen(tk.Frame):
     def __init__(self, parent, controller, pathname = no_img_path):
         tk.Frame.__init__(self, parent)
         self.controller = controller
