@@ -14,14 +14,17 @@ from api.game_logic.Pokemon import Pokemon
 
 class BattleApp(tk.Tk):
 
-    def __init__(self, player, rival, *args, **kwargs):
+    def __init__(self, player, rival, client = None, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
         # store player info
         self.player_info = player
         self.rival_info = rival
+        self.client = client
         self.pokemon = Pokemon(pokemon_to_dict[self.player_info['pokemon']])
         self.cur_move = 'struggle'
+        self.rival_move = 'struggle'
+        self.winner = 'unknown'
 
         self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
 
@@ -34,7 +37,8 @@ class BattleApp(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (battle_screens.WaitRivalScreen, battle_screens.ChooseMoveScreen, battle_screens.WaitMoveScreen):
+        for F in (battle_screens.WaitRivalScreen, battle_screens.ChooseMoveScreen, battle_screens.WaitMoveScreen,
+                battle_screens.EndBattleScreen):
         #for F in (screens.StartScreen, screens.NameScreen, screens.ChoosePokemon, screens.WaitOpponent):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
@@ -50,9 +54,12 @@ class BattleApp(tk.Tk):
     def show_frame(self, page_name, pathname=screen_config.no_img_path):
         '''Show a frame for the given page name'''
         frame = self.frames[page_name]
-        #if page_name == "WaitRivalScreen":
-        #    frame.changeImg(mapPathByPokeName(self.player_info["pokemon"].lower(), "wait_img"),
-        #                    mapPathByPokeName(self.rival_info["pokemon"].lower(), "wait_img"))
+        if page_name == "WaitMoveScreen":
+            frame.set_move_used(self, self.cur_move)
+            frame.set_rival_move_used(self, self.rival_move)
+
+        elif page_name == "EndBattleScreen":
+            frame.show_winner(self, self.winner)
 
         frame.tkraise()
 
@@ -77,10 +84,27 @@ class BattleApp(tk.Tk):
         self.player_info["state"] = state
 
     def set_cur_move(self, move):
+        print("Setting move", move)
         self.cur_move = move
 
     def get_cur_move(self):
         return self.cur_move
+
+    def set_rival_move(self):
+        print("Receiving rival move")
+        self.rival_move = self.client.recv(1024).decode()
+        print("Received move", self.rival_move)
+
+    def get_rival_move(self):
+        return self.rival_move
+
+    def set_winner(self):
+        print("Finding winner...")
+        self.winner = self.client.recv(1024).decode()
+        print("Found!")
+
+    def get_winner(self):
+        return self.winner
 
 
 if __name__ == "__main__":

@@ -20,9 +20,11 @@ client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((SERVER, PORT))
 
 setGameScreen = SampleApp()
+
 setGameScreen.display()
 setGameScreen.echo_player_info()
 player_dict = setGameScreen.get_player_info()
+
 
 client.sendall(api_utils.stringfy(player_dict).encode())
 
@@ -30,7 +32,7 @@ pokemon_obj = Pokemon(pokemon_to_dict[player_dict['pokemon']])
 
 rival_dict = api_utils.dictionize(client.recv(1024).decode())
 
-battleScreen = BattleApp(player_dict, rival_dict)
+battleScreen = BattleApp(player_dict, rival_dict, client)
 
 battleScreen.display()
 

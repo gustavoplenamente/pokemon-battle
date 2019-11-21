@@ -19,7 +19,7 @@ class SetPlayersThread(threading.Thread):
         'Squirtle': squirtle,
         'Pikachu': pikachu
     }
-    moves = []
+    moves = {}
 
     def __init__(self, clientAddress, clientSocket):
         threading.Thread.__init__(self)
@@ -57,44 +57,37 @@ class SetPlayersThread(threading.Thread):
         time.sleep(1)
 
         #self.rivalSocket.sendall(stringfy(self.player))
-
+        print("Both are ready!\n")
         pokemon_obj = Pokemon(self.pokemon_to_dict[self.player['pokemon']])
         self.Player = Player(self.csocket, self.player['name'], pokemon_obj)
 
-        time.sleep(5)
+        time.sleep(2)
 
-        self.ready[self.csocket] = 'choose-move'
+        print("Pokemon", self.player["pokemon"], "of", self.player["name"], "setted!")
 
-        while self.ready[self.rivalSocket] != 'choose-move':
+        your_move = self.csocket.recv(1024).decode()
+        print("Move", your_move, "was chosen by", self.clients[self.csocket])
+        self.rivalSocket.sendall(your_move.encode())
+        self.moves[self.csocket] = your_move
+        print("Sent move to rival", self.clients[self.rivalSocket])
+
+        while len(self.moves.keys()) == 1:
             time.sleep(1)
+            
+        print("Identified rival move")
 
-        self.moves = pokemon_obj.moves
+        rival_move = self.moves[self.rivalSocket]
 
-        move_request = """Choose a move:
-        (1) %s\t(2) %s\t(3) %s\t(4) %s
-        """% (self.moves[0], self.moves[1], self.moves[2], self.moves[3])
-        self.csocket.sendall(move_request.encode())
-        move_code = self.csocket.recv(1024).decode()
-        move = self.moves[int(move_code)-1]
-        print(addr + " - Move: " + move)
+        if your_move > rival_move:
+            self.csocket.sendall("victory".encode())
+            print("Victory for", self.player["pokemon"], "of", self.player["name"], "(", self.clients[self.csocket], ")")
+        elif your_move < rival_move:
+            self.csocket.sendall("defeat".encode())
+        else:
+            self.csocket.sendall("draw".encode())
+            print("Draw!")
 
-        self.ready[self.csocket] = 'waiting-rival'
-
-        while True:
-            if self.ready[self.rivalSocket] == "waiting-rival":
-                self.rivalSocket.sendall(move.encode())
-                break
-            else:
-                time.sleep(1)
-
-        time.sleep(5)
-
-
-
-
-
-
-
+        time.sleep(10)
 
 if __name__ == "__main__":
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

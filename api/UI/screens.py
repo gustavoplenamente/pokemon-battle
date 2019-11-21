@@ -92,6 +92,8 @@ class NameScreen(tk.Frame):
         self.playButton["command"] = lambda: controller.show_frame("ChoosePokemon")
         self.playButton.pack(side=tk.RIGHT)
 
+        #self.event_add
+
     def clearEntry(self, event):
         self.playButton["text"]= name_screen_playButton
 
