@@ -44,7 +44,7 @@ class StartScreen(tk.Frame):
         self.playButton["width"] = 10
         self.playButton["font"] = ("Verdana", "16")
         
-        playSong = lambda: winsound.PlaySound('opening.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+        playSong = lambda: winsound.PlaySound('opening.wav', winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_LOOP)
         songThread = threading.Thread(target = playSong)
             
         self.playButton["command"] = lambda: controller.show_frame("NameScreen") or songThread.start()
@@ -191,7 +191,7 @@ class WaitOpponent(tk.Frame):
         self.quitButton["width"] = 10
         self.quitButton["font"] = ("Verdana", "16")
 
-        self.quitButton["command"] = lambda: controller.set_player_state('ready') or controller.quit()
+        self.quitButton["command"] = lambda: controller.set_player_state('ready') or controller.destroy()
         self.quitButton.pack()
 
     def changeImg(self, img_path):

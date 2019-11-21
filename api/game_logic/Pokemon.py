@@ -1,4 +1,7 @@
-from game_logic.Move import Move
+try:
+    from api.game_logic.Move import Move
+except:
+    from game_logic.Move import Move
 
 
 class Pokemon:

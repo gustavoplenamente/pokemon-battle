@@ -49,11 +49,14 @@ class SetPlayersThread(threading.Thread):
                 while True:
                     self.rivalSocket = client
                     if self.ready[client] == "ready":
-                        #str_player = stringfy(self.player)
-                        #client.sendall(str_player.encode())
+                        str_player = stringfy(self.player)
+                        client.sendall(str_player.encode())
                         break
                     else:
                         time.sleep(1)
+        time.sleep(1)
+
+        #self.rivalSocket.sendall(stringfy(self.player))
 
         pokemon_obj = Pokemon(self.pokemon_to_dict[self.player['pokemon']])
         self.Player = Player(self.csocket, self.player['name'], pokemon_obj)

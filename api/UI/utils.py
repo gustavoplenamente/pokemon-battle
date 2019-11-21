@@ -1,5 +1,5 @@
 from api.UI.screen_config import bulbasaur_png, squirtle_png, charmander_png, pikachu_png
-
+from api.UI.screen_config import pokemon_info
 
 def choice(i, controller):
     if i==1:
@@ -15,3 +15,5 @@ def choice(i, controller):
         controller.show_frame("WaitOpponent", pathname = pikachu_png)
         controller.player_info["pokemon"] = "Pikachu"
 
+def mapPathByPokeName(poke_name, mode):
+    return pokemon_info[poke_name][mode]

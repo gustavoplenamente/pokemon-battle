@@ -55,7 +55,7 @@ class SampleApp(tk.Tk):
         self.title("Pokémon Simulator")
         self.iconbitmap(screen_config.pokeball_ico)
         
-        playSong = lambda: winsound.PlaySound('choice.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+        playSong = lambda: winsound.PlaySound('choice.wav', winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_LOOP)
         songThread = threading.Thread(target = playSong)
         songThread.start()
         

@@ -25,28 +25,33 @@ squirtle_png = "api/UI/media/squirtle.png"
 charmander_png = "api/UI/media/charmander.png"
 pikachu_png = "api/UI/media/pikachu.png"
 
+bulbasaur_png1 = "api/UI/media/bulbasaur_1.png"
+squirtle_png1 = "api/UI/media/squirtle_1.png"
+charmander_png1 = "api/UI/media/charmander_1.png"
+pikachu_png1 = "api/UI/media/pikachu_1.png"
+
 pokemon_info = {
     "bulbasaur": {
-        "choose_img": "bulbasaur.png",
-        "wait_img": "",
+        "choose_img": bulbasaur_png,
+        "wait_img": bulbasaur_png1,
         "battle_front_img": "",
         "battle_back_img": ""
     },
     "squirtle": {
-        "choose_img": "squirtle.png",
-        "wait_img": "",
+        "choose_img": squirtle_png,
+        "wait_img": squirtle_png1,
         "battle_front_img": "",
         "battle_back_img": ""
     },
     "charmander": {
-        "choose_img": "charmander.png",
-        "wait_img": "",
+        "choose_img": charmander_png,
+        "wait_img": charmander_png1,
         "battle_front_img": "",
         "battle_back_img": ""
     },
     "pikachu": {
-        "choose_img": "pikachu.png",
-        "wait_img": "",
+        "choose_img": pikachu_png,
+        "wait_img": pikachu_png1,
         "battle_front_img": "",
         "battle_back_img": ""
     }

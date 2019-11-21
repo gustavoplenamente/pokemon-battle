@@ -1,4 +1,7 @@
-from settings.Type import Type
+try:
+    from settings.Type import Type
+except:
+    from api.settings.Type import Type
 
 pikachu = {
     'name': 'Pikachu',
