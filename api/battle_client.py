@@ -36,20 +36,40 @@ move_request = client.recv(1024).decode()
 
 move = input(move_request)
 
-moves = {"1": "Tackle", "2": "Pound",
-         "3": "Quick Attack", "4": "Special Move"}
+if pokemon == '1':
+    #buba
+    moves = {"1": "Razor Leaf", "2": "Vine Whip",
+         "3": "Tackle", "4": "Poison Powder"}
+
+elif pokemon == '2':
+    #sk
+    moves = {"1": "Pound", "2": "Water Gun",
+             "3": "Bubblebeam", "4": "Bash Skull"}
+
+elif pokemon == '3':
+    #char
+
+    moves = {"1": "Scratch", "2": "Ember",
+             "3": "Flamethrower", "4": "Bite"}
+
+else:
+    #pika
+    moves = {"1": "Thundershock", "2": "Quick Attack",
+             "3": "Iron Tail", "4": "Slam"}
+
+
 
 client.sendall(move.encode())
 rival_move = client.recv(1024).decode()
-print(rival["name"] + "'s pokemon " + rival["pokemon"] + " chose " + rival_move + "!")
+print(rival["name"] + "'s pokemon " + rival["pokemon"] + " choose " + rival_move + "!")
 
 move = moves[move]
 
 if move > rival_move:
-    print("Tu ganhaste!")
+    print("You Win!")
 elif move == rival_move:
-    print("Empataste!")
+    print("Draw!")
 else:
-    print("Foste derrotado!")
+    print("You lose!")
 
-time.sleep(5)
+time.sleep(2)
