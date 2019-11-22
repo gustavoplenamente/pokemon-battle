@@ -7,6 +7,7 @@ from api_utils import stringfy
 from settings.pokemon_configuration import bulbasaur, charmander, squirtle, pikachu
 from game_logic.Player import Player
 from game_logic.Pokemon import Pokemon
+from game_logic.battle.battle_control import BattleController
 
 
 class SetPlayersThread(threading.Thread):
@@ -22,7 +23,7 @@ class SetPlayersThread(threading.Thread):
     }
     moves = []
 
-    def __init__(self, clientAddress, clientSocket):
+    def __init__(self, clientAddress, clientSocket, battle_judge: BattleController):
         threading.Thread.__init__(self)
         self.csocket = clientSocket
         print("New connection added: ", clientAddress)
@@ -30,6 +31,7 @@ class SetPlayersThread(threading.Thread):
         self.ready[clientSocket] = "not-ready"
         self.player = {}
         self.rivalSocket = None
+        self.battle_judge = battle_judge
 
     def run(self):
 
@@ -54,6 +56,7 @@ class SetPlayersThread(threading.Thread):
         self.csocket.sendall(pokemon_request.encode())
         pokemon_code = self.csocket.recv(1024).decode()
         pokemon = self.pokemons[pokemon_code]
+        pokemon_obj = Pokemon(self.pokemon_to_dict[pokemon])
         print(addr + " - Pokemon: " + pokemon)
 
         self.player = {
@@ -99,6 +102,11 @@ class SetPlayersThread(threading.Thread):
 
         self.ready[self.csocket] = 'waiting-rival'
 
+        #
+        player_obj = Player(self.csocket, name, pokemon_obj)
+        self.battle_judge.addPlayer(player_obj)
+        #
+
         while True:
             if self.ready[self.rivalSocket] == "waiting-rival":
                 self.rivalSocket.sendall(move.encode())
@@ -123,6 +131,10 @@ if __name__ == "__main__":
     print("Server started")
     print("Waiting for client request..")
 
+    #
+    battle_judge = BattleController()
+    #
+
     server.listen(2)
     clientSock, clientAddress = server.accept()
     # threading.Thread(target=setPlayer).start()
@@ -133,3 +145,4 @@ if __name__ == "__main__":
     clientSock2, clientAddress2 = server.accept()
     newthread2 = SetPlayersThread(clientAddress2, clientSock2)
     newthread2.start()
+

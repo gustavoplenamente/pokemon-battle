@@ -8,11 +8,22 @@ from settings.Type import Type, EFFECTIVENESS
 
 
 class BattleController:
-    def __init__(self, players: Dict[Player]):
+    def __init__(self):
+        self.players = {}
+
+    def set_players(self, players: Dict[Player]):
         self.players = players
         self.pokemon1 = self.players['player1'].pokemon
         self.pokemon2 = self.players['player2'].pokemon
         self.moves_selected = {}
+
+    def addPlayer(self, player_obj):
+        if len(self.players.keys()) == 0:
+            self.players['player1'] = player_obj
+        else:
+            self.players['player2'] = player_obj
+            self.start_battle()
+            
 
     def start_battle(self):
         # change to battle screen

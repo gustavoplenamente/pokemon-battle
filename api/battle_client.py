@@ -46,10 +46,10 @@ print(rival["name"] + "'s pokemon " + rival["pokemon"] + " chose " + rival_move 
 move = moves[move]
 
 if move > rival_move:
-    print("Tu ganhaste!")
+    print("You win!")
 elif move == rival_move:
-    print("Empataste!")
+    print("Tie!")
 else:
-    print("Foste derrotado!")
+    print("You lose!")
 
 time.sleep(5)
